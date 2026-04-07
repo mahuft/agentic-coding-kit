@@ -94,7 +94,7 @@ cp -r analyze-codebase-skills ~/.claude/skills/
 - **标准（Sonnet）** — 平衡质量与成本。**默认选项。**
 - **最强（Opus）** — 深度审查，主动发现问题。质量最高。
 
-偏好设置保存在 `docs/analyze-codebase/.model-preference`，在当前会话中持续生效。
+偏好设置保存在 `docs/analyze-codebase/.preference`，在当前会话中持续生效。
 
 ## 设计哲学
 
