@@ -28,6 +28,15 @@ If the user's request involves understanding, exploring, or analyzing source cod
 This is not negotiable. This is not optional. You cannot rationalize your way out of this.
 </EXTREMELY-IMPORTANT>
 
+## 入口契约
+
+- **输入**：用户发起的“理解源码 / 探索代码库 / 分析实现”类请求。
+- **本阶段职责**：只负责识别这是一次源码理解请求，并把请求转交给 `clarify-and-plan`；本阶段不读取源码、不生成分析产物。
+- **允许动作**：检查子代理模型偏好，并调用下一个技能。
+- **禁止动作**：直接开始代码检索、文件阅读、架构分析，或跳过澄清直接给出源码结论。
+- **输出**：调用 `clarify-and-plan` 所需的交接上下文：用户原始问题、尚未开始探索的状态、以及当前模型偏好。
+- **交接规则**：后续阶段不应假设入口阶段已经完成任何源码阅读；入口阶段只做分发，不补做计划或分析阶段的工作。
+
 ## 触发决策流程
 
 ```dot
@@ -76,7 +85,7 @@ digraph trigger_flow {
 | 想法 | 现实 |
 |-----|------|
 | "我直接先看看项目结构" | 无结构的浏览会浪费 token。先澄清用户意图。 |
-| "先读 README 快速了解一下" | 这是探索行为，属于工作流后续阶段。 |
+| "先读 README 快速了解一下" | 这是探索行为，属于工作流中的执行分析阶段。 |
 | "用户的问题很明确，不需要计划" | 你以为的明确 ≠ 真正的明确。让工作流验证。 |
 | "我先用 codebase-retrieval 搜一下" | 搜索策略应基于计划。先做计划再搜索。 |
 | "这只是个简单问题" | 简单问题也会触发无序探索。用结构化流程。 |

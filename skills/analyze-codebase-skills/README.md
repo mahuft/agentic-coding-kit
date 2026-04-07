@@ -23,15 +23,15 @@
   ▼
 ② clarify-and-plan（澄清与计划）
   │  通过提问澄清意图，生成 8 视角探索计划
-  │  ★ HARD-GATE：用户批准后才能继续
+  │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
 ③ execute-analysis（执行分析）
   │  系统化探索源码，产出完整分析报告
-  │  ★ HARD-GATE：用户批准后才能继续
+  │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
 ④ clone-writing-plan（仿写计划）[可选]
   │  基于分析报告设计仿写策略
-  │  ★ HARD-GATE：用户批准后才能继续
+  │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
 ⑤ execute-clone-writing（执行仿写）[可选]
   │  产出 5 个交付物：伪代码、术语词典、Vibe Coding 提示词、设计差异分析、改进建议
@@ -40,7 +40,9 @@
 完成
 ```
 
-每个阶段都有 **HARD-GATE**——Agent 在你明确批准之前不会继续下一步。每个输出在展示给你之前都会经过子代理自审。
+每个阶段都有 **HARD-GATE**——Agent 在你明确批准之前不会进入下一步。每个输出在展示给你之前都会经过子代理自审。
+
+每个阶段文件都应单独说明自己的输入、输出、允许动作和禁止动作；下游阶段只应依赖上游产物中显式写出的信息，而不应依赖隐含章节结构或默认上下文。
 
 ## 8 视角分析框架
 
@@ -63,10 +65,10 @@
 
 | 文件 | 产出阶段 | 说明 |
 |------|---------|------|
-| `analysis-plan.md` | clarify-and-plan | 结构化探索计划，含 8 视角优先级 |
-| `analysis-report.md` | execute-analysis | 完整分析报告，含 Mermaid 图表和架构避坑指南 |
-| `clone-writing-plan.md` | clone-writing-plan | 仿写策略规划 |
-| `clone-writing-report.md` | execute-clone-writing | 5 个交付物：伪代码、术语词典、提示词、差异分析、改进建议 |
+| `analysis-plan.md` | clarify-and-plan | 结构化探索计划，含 8 视角优先级；供下游显式消费讲解主线、问题链、图示计划与范围边界 |
+| `analysis-report.md` | execute-analysis | 完整分析报告，含 Mermaid 图表和架构避坑指南；供下游显式消费核心骨架、关键机制与设计约束 |
+| `clone-writing-plan.md` | clone-writing-plan | 仿写策略规划；供下游显式消费复刻边界、简化策略与 Vibe Coding 模板蓝图 |
+| `clone-writing-report.md` | execute-clone-writing | 5 个交付物：伪代码、术语词典、提示词、差异分析、改进建议；其中提示词必须可脱离外部上下文独立使用 |
 
 ## 安装
 
