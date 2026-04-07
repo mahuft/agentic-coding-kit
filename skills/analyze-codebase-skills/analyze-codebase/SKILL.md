@@ -61,7 +61,7 @@ digraph trigger_flow {
 
 在调用 `clarify-and-plan` 之前，检查子代理模型偏好：
 
-1. **检查配置文件** — 读取 `docs/analyze-codebase/.model-preference`（如果存在）
+1. **检查配置文件** — 读取 `docs/analyze-codebase/.preference`（如果存在）
 2. **首次使用时询问** — 如果文件不存在，向用户展示选择：
    > 源码分析过程中会派发子代理执行审查工作。请选择子代理模型偏好：
    > A) 快速经济模型 — 速度快，成本低
@@ -69,7 +69,7 @@ digraph trigger_flow {
    > C) 最强模型 — 最高质量，成本最高
    >
    > 直接回车使用默认(B)，或输入 A/B/C。
-3. **保存偏好** — 将选择写入 `docs/analyze-codebase/.model-preference`，格式：`ANALYZE-CODEBASE-MODEL: standard`
+3. **保存偏好** — 将选择写入 `docs/analyze-codebase/.preference`，格式：`subagent_model: standard`
    - 值为：`fast-cheap` / `standard`（默认）/ `most-capable`
 
 ## 规则
