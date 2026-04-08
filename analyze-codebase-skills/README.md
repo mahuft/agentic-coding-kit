@@ -1,20 +1,27 @@
 # Analyze Codebase Skills
 
-一套结构化的源码探索分析工作流，以可组合的 Skills 形式构建。引导 Coding Agent 从用户的提问出发，经过意图澄清、计划制定、系统化探索，最终产出深度分析报告——告别无序浏览代码的混乱。
+一套结构化的源码探索分析工作流，以可组合的 Skills 形式构建。它引导 Coding Agent 从用户问题出发，经过意图澄清、计划制定、系统化探索，再把参考库知识转化为面向目标库落地的规格与编码任务计划。
 
 ## 工作原理
 
-当你让 Agent 理解某个代码库时，工作流就启动了。Agent 不会直接跳进去随机阅读文件，而是先退一步，通过有针对性的提问澄清你真正想了解什么。经过几轮交互后，将你的意图提炼为一份结构化的探索计划。
+当你让 Agent 理解某个代码库时，工作流不会直接随机读文件，而是先收敛目标、范围与讲解路径，再按结构化方式探索源码并写出分析报告。
 
-你批准计划后，Agent 按照 **8 个分析视角** 系统化地探索代码库——从意图与问题域到错误处理与扩展性。每项发现都附有具体的代码引用，辅以 Mermaid 可视化图表，并在展示给你之前经过子代理自审。
+如果你还希望把参考库中的做法迁移到自己的项目里，后续阶段不会直接产出“教学式仿写报告”，而是分成两步：
 
-分析完成后，你可以选择进入**仿写阶段**：Agent 会产出伪代码、专用术语词典、Vibe Coding 提示词模板、设计差异分析和改进建议——帮助你将学到的模式复用到自己的项目中。
+1. 先产出一份 **代码仿写需求规格说明书**，把参考库模式与目标库现实约束合并成可审查的规格。
+2. 再产出一份 **目标库编码任务计划说明书**，把规格转成面向目标库 Agent 的完整 Agentic Coding 提示词。
 
-这套 Skills 会自动触发——只要你的请求涉及理解、探索或分析源码，无需任何特殊操作。
+## 全局原则
+
+- **结构化优于随意** — 不随机浏览。先澄清，再计划，再执行。
+- **前置澄清优于事后补救** — 第 2、3、4、5 步都应尽可能在规划阶段主动暴露不确定性并提问。
+- **自审优于跳过** — 每个阶段的关键产物在展示前都经过 reviewer 自审。
+- **用户门控优于自治** — 每个阶段都需要你的明确批准。
+- **证据优于断言** — 发现基于具体代码引用，而非模糊概括。
 
 ## 工作流
 
-```
+```markdown
 用户提问
   │
   ▼
@@ -26,21 +33,19 @@
   │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
 ③ execute-analysis（执行分析）
-  │  系统化探索源码，产出完整分析报告
+  │  系统化探索参考库，产出完整分析报告
   │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
-④ clone-writing-plan（仿写计划）[可选]
-  │  基于分析报告设计仿写策略
+④ code-imitation-spec（代码仿写需求规格）[可选]
+  │  结合参考库分析结果与目标库现实约束，生成可审查规格
   │  ★ HARD-GATE：用户批准后才能进入下一步
   ▼
-⑤ execute-clone-writing（执行仿写）[可选]
-  │  产出 5 个交付物：伪代码、术语词典、Vibe Coding 提示词、设计差异分析、改进建议
-  │  ★ HARD-GATE：用户批准后流程结束
+⑤ coding-task-plan（目标库编码任务计划）[可选]
+  │  分章节生成 `coding-task-plan.md`，整份文档就是目标库 Agent 的完整提示词
+  │  ★ HARD-GATE：每章都需用户批准，全文完成后流程结束
   ▼
 完成
 ```
-
-每个阶段都有 **HARD-GATE**——Agent 在你明确批准之前不会进入下一步。每个输出在展示给你之前都会经过子代理自审。
 
 每个阶段文件都应单独说明自己的输入、输出、允许动作和禁止动作；下游阶段只应依赖上游产物中显式写出的信息，而不应依赖隐含章节结构或默认上下文。
 
@@ -65,10 +70,10 @@
 
 | 文件 | 产出阶段 | 说明 |
 |------|---------|------|
-| `analysis-plan.md` | clarify-and-plan | 结构化探索计划，含 8 视角优先级；供下游显式消费讲解主线、问题链、图示计划与范围边界 |
-| `analysis-report.md` | execute-analysis | 完整分析报告，含 Mermaid 图表和架构避坑指南；供下游显式消费核心骨架、关键机制与设计约束 |
-| `clone-writing-plan.md` | clone-writing-plan | 仿写策略规划；供下游显式消费复刻边界、简化策略与 Vibe Coding 模板蓝图 |
-| `clone-writing-report.md` | execute-clone-writing | 5 个交付物：伪代码、术语词典、提示词、差异分析、改进建议；其中提示词必须可脱离外部上下文独立使用 |
+| `analysis-plan.md` | clarify-and-plan | 结构化探索计划，供下游显式消费讲解主线、问题链、图示计划与范围边界 |
+| `analysis-report.md` | execute-analysis | 完整分析报告，供下游显式消费参考库技术栈、关键骨架、关键执行链、可迁移本质与上下文约束 |
+| `code-imitation-spec.md` | code-imitation-spec | 面向目标库的仿写需求规格，供下游显式消费双库差异、集成策略、MVP、非目标、风险与待确认事项 |
+| `coding-task-plan.md` | coding-task-plan | 面向目标库 Agent 的完整编码任务计划说明书；单文件分章节生成，整份文档即执行提示词 |
 
 ## 安装
 
@@ -88,7 +93,7 @@ cp -r analyze-codebase-skills ~/.claude/skills/
 
 ### 子代理模型偏好
 
-分析工作流会派发子代理执行自审任务。首次触发 `analyze-codebase` 时，会让你选择子代理的模型能力等级：
+分析工作流会派发子代理执行审查工作。首次触发 `analyze-codebase` 时，会让你选择子代理的模型能力等级：
 
 - **快速经济（Haiku）** — 速度最快，聚焦关键检查项。成本最低。
 - **标准（Sonnet）** — 平衡质量与成本。**默认选项。**
@@ -96,30 +101,22 @@ cp -r analyze-codebase-skills ~/.claude/skills/
 
 偏好设置保存在 `docs/analyze-codebase/.preference`，在当前会话中持续生效。
 
-## 设计哲学
-
-- **结构化优于随意** — 不随机浏览。先计划，再探索。
-- **计划优于行动** — 在阅读任何文件之前先澄清意图。
-- **自审优于跳过** — 每个输出在展示前都经过子代理审查。
-- **用户门控优于自治** — 每个阶段都需要你的明确批准。
-- **证据优于断言** — 发现基于具体代码引用，而非模糊概括。
-
 ## 文件结构
 
-```
+```text
 analyze-codebase-skills/
 ├── analyze-codebase/
-│   └── SKILL.md                          # 入口技能
+│   └── SKILL.md                                   # 入口技能
 ├── clarify-and-plan/
-│   ├── SKILL.md                          # 澄清与计划技能
-│   └── analysis-plan-reviewer-prompt.md  # 探索计划审查提示
+│   ├── SKILL.md                                   # 澄清与计划技能
+│   └── analysis-plan-reviewer-prompt.md           # 探索计划审查提示
 ├── execute-analysis/
-│   ├── SKILL.md                          # 执行分析技能
-│   └── analysis-report-reviewer-prompt.md # 分析报告审查提示
-├── clone-writing-plan/
-│   ├── SKILL.md                          # 仿写计划技能
-│   └── clone-plan-reviewer-prompt.md     # 仿写计划审查提示
-└── execute-clone-writing/
-    ├── SKILL.md                          # 执行仿写技能
-    └── clone-report-reviewer-prompt.md   # 仿写报告审查提示
+│   ├── SKILL.md                                   # 执行分析技能
+│   └── analysis-report-reviewer-prompt.md         # 分析报告审查提示
+├── code-imitation-spec/
+│   ├── SKILL.md                                   # 代码仿写需求规格技能
+│   └── code-imitation-spec-reviewer-prompt.md     # 仿写规格审查提示
+└── coding-task-plan/
+    ├── SKILL.md                                   # 目标库编码任务计划技能
+    └── coding-task-plan-reviewer-prompt.md        # 编码任务计划审查提示
 ```
