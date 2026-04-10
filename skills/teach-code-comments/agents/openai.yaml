@@ -1,0 +1,4 @@
+interface:
+  display_name: "教学式代码注释"
+  short_description: "给陌生仓库中的晦涩源码补上逐段教学式高密度解释注释"
+  default_prompt: "使用 $teach-code-comments 给这个模块添加教学式逐段讲解注释，不要改动运行时代码。"

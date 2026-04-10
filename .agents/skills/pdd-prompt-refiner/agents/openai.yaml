@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDD Prompt Refiner"
+  short_description: "Turn rough coding asks into PDD-ready prompts"
+  default_prompt: "Use $pdd-prompt-refiner to turn this rough coding request into an execution-ready PDD prompt."
