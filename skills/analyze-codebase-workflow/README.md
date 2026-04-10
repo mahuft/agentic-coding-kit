@@ -83,17 +83,36 @@
 
 ## 安装
 
-### Claude Code
+推荐使用仓库根目录的 `sync` CLI，而不是手动复制目录。
 
-将 `analyze-codebase-skills` 目录复制到 Claude Code 的 skills 目录：
+### 示例：分发到 Claude Code 与 standards-compliant agents 的用户级 skills 仓库
+
+在仓库根创建 `skills-distribution.json`：
+
+```json
+{
+  "version": 1,
+  "rules": [
+    {
+      "source": { "type": "group", "path": "skills/analyze-codebase-workflow" },
+      "agents": ["claude-code", "codex", "cursor"],
+      "scope": { "type": "user" }
+    }
+  ]
+}
+```
+
+然后执行：
 
 ```bash
-cp -r analyze-codebase-skills ~/.claude/skills/
+bun run index.ts sync
 ```
+
+这会把当前 group 下的 concrete skills（如 `clarify-and-plan`、`execute-analysis` 等）以 symlink 形式同步到对应 agent 的 skills 仓库，并自动维护 `skills-distribution.lock`。
 
 ### 其他平台
 
-对于其他 Coding Agent 平台（Copilot CLI、Codex、OpenCode、Gemini CLI 等），请参考主 README 中的 superpowers 安装说明。Analyze Codebase Skills 遵循相同的技能发现机制。
+如需项目级安装，可把 `scope` 改为 `project` 并提供 `projectRoots`。支持的 agent registry 与 config/lock 规则见仓库根 `README.md`。
 
 ## 配置
 

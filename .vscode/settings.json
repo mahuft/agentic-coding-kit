@@ -1,0 +1,31 @@
+{
+  "terminal.integrated.profiles.osx": {
+    "claude_zai": {
+      "path": "zsh",
+      "overrideName": true,
+      "icon": "sparkle",
+      "color": "terminal.ansiYellow",
+      "env": {},
+      "args": ["-lc", "claude --allow-dangerously-skip-permissions"]
+    },
+    "claude_codex": {
+      "path": "zsh",
+      "overrideName": true,
+      "icon": "sparkle",
+      "color": "terminal.ansiYellow",
+      "env": {
+        "CLAUDE_CONFIG_DIR": "/Users/caiwillie/.claude_gx",
+        "ANTHROPIC_AUTH_TOKEN": "sk-jOLahnJDggkuMhpESjDXDefcK7j2cJnC8sjBC4eZg24iwTsM",
+        "ANTHROPIC_BASE_URL": "https://api.codexzh.com",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "cc-gpt-5.4",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "cc-gpt-5.4",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "cc-gpt-5.4",
+        "ANTHROPIC_MODEL": "opus"
+      },
+      "args": [
+        "-c",
+        "claude --allow-dangerously-skip-permissions --add-dir /Users/caiwillie/code/ziyanlili/hzde/data_quality_assessment_service /Users/caiwillie/code/ziyanlili/hzde/data_quality_assessment_web"
+      ]
+    }
+  }
+}

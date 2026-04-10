@@ -1,0 +1,36 @@
+{
+  "version": 2,
+  "configPath": "/Users/caiwillie/code/mahuft/agentic-coding-kit/skills-distribution.json",
+  "configHash": "ec03951e2d30185e5283853053f4b9fbc4d9adb2bf205cab552bc166d6f8ceb1",
+  "generatedAt": "2026-04-10T12:47:21.661Z",
+  "entries": [
+    {
+      "skillId": "teach-code-comments",
+      "sourcePath": "/Users/caiwillie/code/mahuft/agentic-coding-kit/skills/teach-code-comments",
+      "scopeType": "user",
+      "projectRoot": null,
+      "effectiveUserRoot": "/Users/caiwillie/.claude_gx",
+      "userRootSource": "agent-override",
+      "contributingAgents": [
+        "claude-code"
+      ],
+      "normalizedRelativeSkillsDir": "skills",
+      "targetSkillsRoot": "/Users/caiwillie/.claude_gx/skills",
+      "targetPath": "/Users/caiwillie/.claude_gx/skills/teach-code-comments"
+    },
+    {
+      "skillId": "teach-code-comments",
+      "sourcePath": "/Users/caiwillie/code/mahuft/agentic-coding-kit/skills/teach-code-comments",
+      "scopeType": "user",
+      "projectRoot": null,
+      "effectiveUserRoot": "/Users/caiwillie/.claude",
+      "userRootSource": "agent-override",
+      "contributingAgents": [
+        "claude-code"
+      ],
+      "normalizedRelativeSkillsDir": "skills",
+      "targetSkillsRoot": "/Users/caiwillie/.claude/skills",
+      "targetPath": "/Users/caiwillie/.claude/skills/teach-code-comments"
+    }
+  ]
+}

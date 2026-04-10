@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "agentUserRoots": {
+    "claude-code": ["./.claude", "./.claude_gx"]
+  },
+  "rules": [
+    {
+      "source": { "type": "skill", "path": "skills/teach-code-comments" },
+      "agents": ["claude-code"],
+      "scope": { "type": "user" }
+    }
+  ]
+}
